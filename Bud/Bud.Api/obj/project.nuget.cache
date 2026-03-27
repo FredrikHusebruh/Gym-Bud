@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "3GtjPzus1w8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Bud\\Bud.Api\\Bud.Api.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\frede\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\frede\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

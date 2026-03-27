@@ -1,0 +1,12 @@
+services:
+  backend:
+    build: ./Bud.Api
+    ports:
+      - "5000:8080"
+
+  frontend:
+    build: ./BubApp
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
