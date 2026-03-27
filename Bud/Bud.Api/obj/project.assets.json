@@ -81,11 +81,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Bud\\Bud.Api\\Bud.Api.csproj",
+      "projectUniqueName": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Gym Bud\\Bud\\Bud.Api\\Bud.Api.csproj",
       "projectName": "Bud.Api",
-      "projectPath": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Bud\\Bud.Api\\Bud.Api.csproj",
+      "projectPath": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Gym Bud\\Bud\\Bud.Api\\Bud.Api.csproj",
       "packagesPath": "C:\\Users\\frede\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Bud\\Bud.Api\\obj\\",
+      "outputPath": "C:\\Users\\frede\\Desktop\\skole\\vår2026\\Gym Bud\\Bud\\Bud.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

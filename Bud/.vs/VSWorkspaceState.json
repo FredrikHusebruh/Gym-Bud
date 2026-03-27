@@ -3,8 +3,9 @@
     "",
     "\\Bud.Api",
     "\\BudApp",
-    "\\BudApp\\src"
+    "\\BudApp\\src",
+    "\\BudApp\\src\\assets"
   ],
-  "SelectedNode": "\\BudApp\\src\\index.css",
+  "SelectedNode": "\\BudApp\\src",
   "PreviewInSolutionExplorer": false
 }

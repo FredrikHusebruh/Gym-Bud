@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6acd05e98c567748c9ce69962b97c9c08c60d37")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
