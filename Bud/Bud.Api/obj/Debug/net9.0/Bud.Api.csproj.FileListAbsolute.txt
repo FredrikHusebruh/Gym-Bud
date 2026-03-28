@@ -63,3 +63,11 @@ C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\obj\Debug\net9.0\refin
 C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\obj\Debug\net9.0\Bud.Api.pdb
 C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\obj\Debug\net9.0\Bud.Api.genruntimeconfig.cache
 C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\obj\Debug\net9.0\ref\Bud.Api.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\frede\Desktop\skole\vår2026\Gym Bud\Bud\Bud.Api\bin\Debug\net9.0\System.IdentityModel.Tokens.Jwt.dll
