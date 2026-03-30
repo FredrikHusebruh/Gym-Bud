@@ -46,25 +46,6 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Enable managed identity on container apps
-        run: |
-          az containerapp identity assign --name budapi --resource-group $RG --system-assigned
-          az containerapp identity assign --name budapp --resource-group $RG --system-assigned
-
-      - name: Configure container apps to use ACR via managed identity
-        run: |
-          az containerapp registry set \
-            --name budapi \
-            --resource-group $RG \
-            --server $ACR_SERVER \
-            --identity system
-
-          az containerapp registry set \
-            --name budapp \
-            --resource-group $RG \
-            --server $ACR_SERVER \
-            --identity system
-
       - name: Deploy backend
         run: |
           az containerapp update \
