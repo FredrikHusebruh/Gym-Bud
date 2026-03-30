@@ -36,9 +36,6 @@ jobs:
 
       - name: Deploy backend
         run: |
-          az containerapp registry set --name budapi --resource-group $RG \
-            --server ${ACR_NAME}.azurecr.io \
-            --identity system
           az containerapp update --name budapi --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapi:${{ github.sha }}
 
@@ -71,8 +68,5 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          az containerapp registry set --name budapp --resource-group $RG \
-            --server ${ACR_NAME}.azurecr.io \
-            --identity system
           az containerapp update --name budapp --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapp:${{ github.sha }}
