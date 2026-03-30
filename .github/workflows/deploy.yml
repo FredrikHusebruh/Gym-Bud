@@ -40,18 +40,22 @@ jobs:
 
       - name: Deploy backend
         run: |
+          az containerapp registry set --name budapi \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
+            --password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
           az containerapp update --name budapi \
             --resource-group GymBudRG \
-            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest \
-            --registry-server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-            --registry-username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
-            --registry-password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
 
       - name: Deploy frontend
         run: |
+          az containerapp registry set --name budapp \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
+            --password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
           az containerapp update --name budapp \
             --resource-group GymBudRG \
-            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest \
-            --registry-server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-            --registry-username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
-            --registry-password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
