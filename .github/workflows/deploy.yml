@@ -38,24 +38,38 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy backend
+      - name: Configure ACR access via managed identity
         run: |
+          ACR_ID=$(az acr show --name ${{ secrets.AZURE_REGISTRY_NAME }} --query id -o tsv)
+
+          BUDAPI_PRINCIPAL=$(az containerapp identity assign \
+            --name budapi --resource-group GymBudRG \
+            --system-assigned --query principalId -o tsv)
+          az role assignment create \
+            --assignee $BUDAPI_PRINCIPAL --role AcrPull --scope $ACR_ID
           az containerapp registry set --name budapi \
             --resource-group GymBudRG \
             --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
-            --password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+            --identity system
+
+          BUDAPP_PRINCIPAL=$(az containerapp identity assign \
+            --name budapp --resource-group GymBudRG \
+            --system-assigned --query principalId -o tsv)
+          az role assignment create \
+            --assignee $BUDAPP_PRINCIPAL --role AcrPull --scope $ACR_ID
+          az containerapp registry set --name budapp \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+            --identity system
+
+      - name: Deploy backend
+        run: |
           az containerapp update --name budapi \
             --resource-group GymBudRG \
             --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
 
       - name: Deploy frontend
         run: |
-          az containerapp registry set --name budapp \
-            --resource-group GymBudRG \
-            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
-            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
-            --password ${{ secrets.AZURE_REGISTRY_PASSWORD }}
           az containerapp update --name budapp \
             --resource-group GymBudRG \
             --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
