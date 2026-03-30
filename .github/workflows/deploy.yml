@@ -53,7 +53,7 @@ jobs:
 
       - name: Grant AcrPull on ACR
         run: |
-          ACR_ID=$(az acr show --name $ACR_NAME --resource-group $RG --query id -o tsv)
+          ACR_ID=$(az acr show --name $ACR_NAME --query id -o tsv)
 
           for APP in budapi budapp; do
             PRINCIPAL_ID=$(az containerapp show \
