@@ -20,14 +20,14 @@ jobs:
       - name: Build and push backend
         uses: docker/build-push-action@v4
         with:
-          context: ./Bud.Api
+          context: ./Bud/Bud.Api
           push: true
           tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
 
       - name: Build and push frontend
         uses: docker/build-push-action@v4
         with:
-          context: ./BudApp
+          context: ./Bud/BudApp
           push: true
           tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
           build-args: |
