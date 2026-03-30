@@ -42,6 +42,7 @@ jobs:
             --server ${ACR_NAME}.azurecr.io \
             --username "$ACR_USER" \
             --password "$ACR_PASS"
+          sleep 15
           az containerapp update --name budapi --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapi:${{ github.sha }}
 
@@ -80,5 +81,6 @@ jobs:
             --server ${ACR_NAME}.azurecr.io \
             --username "$ACR_USER" \
             --password "$ACR_PASS"
+          sleep 15
           az containerapp update --name budapp --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapp:${{ github.sha }}
