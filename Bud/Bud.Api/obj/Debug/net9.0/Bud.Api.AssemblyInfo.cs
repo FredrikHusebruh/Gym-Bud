@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8b5807506105a14e56e19584578058da8377fc63")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a50ec4d841d2d4e9bad76db2f54e8f276ae2047b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bud.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

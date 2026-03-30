@@ -1,0 +1,51 @@
+name: Deploy to Azure
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Log in to ACR
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v4
+        with:
+          context: ./Bud.Api
+          push: true
+          tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
+
+      - name: Build and push frontend
+        uses: docker/build-push-action@v4
+        with:
+          context: ./BudApp
+          push: true
+          tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
+          build-args: |
+            VITE_API_URL=${{ secrets.BACKEND_URL }}
+
+      - name: Azure login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy backend
+        run: |
+          az containerapp update --name budapi \
+            --resource-group GymBudRG \
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
+
+      - name: Deploy frontend
+        run: |
+          az containerapp update --name budapp \
+            --resource-group GymBudRG \
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest

@@ -16,7 +16,7 @@ export default function LoginPage() {
         })
 
         if (error) {
-            alert(error.message) // ← show error and stop here
+            alert(error.message)
             return
         }
 
