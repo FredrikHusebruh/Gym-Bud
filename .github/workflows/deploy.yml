@@ -36,13 +36,9 @@ jobs:
 
       - name: Deploy backend
         run: |
-          ACR_USER=$(az acr credential show --name $ACR_NAME --query "username" -o tsv)
-          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
           az containerapp registry set --name budapi --resource-group $RG \
             --server ${ACR_NAME}.azurecr.io \
-            --username "$ACR_USER" \
-            --password "$ACR_PASS"
-          sleep 15
+            --identity system
           az containerapp update --name budapi --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapi:${{ github.sha }}
 
@@ -75,12 +71,8 @@ jobs:
 
       - name: Deploy frontend
         run: |
-          ACR_USER=$(az acr credential show --name $ACR_NAME --query "username" -o tsv)
-          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
           az containerapp registry set --name budapp --resource-group $RG \
             --server ${ACR_NAME}.azurecr.io \
-            --username "$ACR_USER" \
-            --password "$ACR_PASS"
-          sleep 15
+            --identity system
           az containerapp update --name budapp --resource-group $RG \
             --image ${ACR_NAME}.azurecr.io/budapp:${{ github.sha }}
