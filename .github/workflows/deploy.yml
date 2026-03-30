@@ -31,8 +31,6 @@ jobs:
           appSourcePath: ${{ github.workspace }}/Bud/Bud.Api
           dockerfilePath: Dockerfile
           acrName: ${{ secrets.AZURE_REGISTRY_NAME }}
-          acrUsername: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          acrPassword: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
           containerAppName: budapi
           resourceGroup: GymBudRG
           imageToBuild: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:${{ github.sha }}
@@ -60,8 +58,6 @@ jobs:
           appSourcePath: ${{ github.workspace }}/Bud/BudApp
           dockerfilePath: Dockerfile
           acrName: ${{ secrets.AZURE_REGISTRY_NAME }}
-          acrUsername: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          acrPassword: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
           containerAppName: budapp
           resourceGroup: GymBudRG
           imageToBuild: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
