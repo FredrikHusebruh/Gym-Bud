@@ -68,6 +68,7 @@ jobs:
               --role AcrPull \
               --scope $ACR_ID || true
           done
+          sleep 30
 
       - name: Configure container apps to use ACR via managed identity
         run: |
