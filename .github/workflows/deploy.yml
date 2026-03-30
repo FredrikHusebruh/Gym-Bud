@@ -40,6 +40,8 @@ jobs:
 
       - name: Reset registry credentials
         run: |
+          az containerapp identity remove --name budapi \
+            --resource-group GymBudRG --system-assigned 2>/dev/null || true
           az containerapp registry remove --name budapi \
             --resource-group GymBudRG \
             --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io 2>/dev/null || true
@@ -49,6 +51,8 @@ jobs:
             --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
             --password "${{ secrets.AZURE_REGISTRY_PASSWORD }}"
 
+          az containerapp identity remove --name budapp \
+            --resource-group GymBudRG --system-assigned 2>/dev/null || true
           az containerapp registry remove --name budapp \
             --resource-group GymBudRG \
             --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io 2>/dev/null || true
