@@ -1,0 +1,13 @@
+# .NET build output
+Bud.Api/bin/
+Bud.Api/obj/
+
+# VS files
+.vs/
+
+# Node
+BudApp/node_modules/
+BudApp/dist/
+
+# Environment
+BudApp/.env
