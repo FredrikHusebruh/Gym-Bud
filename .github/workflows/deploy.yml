@@ -38,22 +38,34 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Reset registry credentials
+        run: |
+          az containerapp registry remove --name budapi \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io 2>/dev/null || true
+          az containerapp registry set --name budapi \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
+            --password "${{ secrets.AZURE_REGISTRY_PASSWORD }}"
+
+          az containerapp registry remove --name budapp \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io 2>/dev/null || true
+          az containerapp registry set --name budapp \
+            --resource-group GymBudRG \
+            --server ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io \
+            --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
+            --password "${{ secrets.AZURE_REGISTRY_PASSWORD }}"
+
       - name: Deploy backend
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          imageToDeploy: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
-          resourceGroup: GymBudRG
-          containerAppName: budapi
-          registryUrl: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
-          registryUsername: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+        run: |
+          az containerapp update --name budapi \
+            --resource-group GymBudRG \
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:latest
 
       - name: Deploy frontend
-        uses: azure/container-apps-deploy-action@v1
-        with:
-          imageToDeploy: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
-          resourceGroup: GymBudRG
-          containerAppName: budapp
-          registryUrl: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
-          registryUsername: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          registryPassword: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+        run: |
+          az containerapp update --name budapp \
+            --resource-group GymBudRG \
+            --image ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:latest
