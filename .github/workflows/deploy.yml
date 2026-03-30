@@ -1,73 +1,64 @@
-name: Deploy to Azure!
+name: Deploy to Azure
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
 
 jobs:
-  deploy:
+  deploy-backend:
     runs-on: ubuntu-latest
 
     env:
       RG: GymBudRG
       ACR_NAME: ${{ secrets.AZURE_REGISTRY_NAME }}
-      ACR_SERVER: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
-      BACKEND_IMAGE: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:${{ github.sha }}
-      FRONTEND_IMAGE: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
+      BACKEND_APP_NAME: budapi
 
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Log in to ACR
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.ACR_SERVER }}
-          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
-          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
-
-      - name: Build and push backend
-        uses: docker/build-push-action@v6
-        with:
-          context: ./Bud/Bud.Api
-          push: true
-          tags: ${{ env.BACKEND_IMAGE }}
-
-      - name: Build and push frontend
-        uses: docker/build-push-action@v6
-        with:
-          context: ./Bud/BudApp
-          push: true
-          tags: ${{ env.FRONTEND_IMAGE }}
-          build-args: |
-            VITE_API_URL=${{ secrets.BACKEND_URL }}
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Azure login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Configure registry credentials
-        run: |
-          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
-          az containerapp registry set -n budapi -g $RG \
-            --server $ACR_SERVER \
-            --username "$ACR_NAME" \
-            --password "$ACR_PASS"
-          az containerapp registry set -n budapp -g $RG \
-            --server $ACR_SERVER \
-            --username "$ACR_NAME" \
-            --password "$ACR_PASS"
+      - name: Build and deploy backend
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/Bud/Bud.Api
+          dockerfilePath: ${{ github.workspace }}/Bud/Bud.Api/Dockerfile
+          acrName: ${{ env.ACR_NAME }}
+          containerAppName: ${{ env.BACKEND_APP_NAME }}
+          resourceGroup: ${{ env.RG }}
+          imageToBuild: ${{ env.ACR_NAME }}.azurecr.io/budapi:${{ github.sha }}
 
-      - name: Deploy backend
-        run: |
-          az containerapp update \
-            --name budapi \
-            --resource-group $RG \
-            --image $BACKEND_IMAGE
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: deploy-backend
 
-      - name: Deploy frontend
-        run: |
-          az containerapp update \
-            --name budapp \
-            --resource-group $RG \
-            --image $FRONTEND_IMAGE
+    env:
+      RG: GymBudRG
+      ACR_NAME: ${{ secrets.AZURE_REGISTRY_NAME }}
+      FRONTEND_APP_NAME: budapp
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Build and deploy frontend
+        uses: azure/container-apps-deploy-action@v1
+        with:
+          appSourcePath: ${{ github.workspace }}/Bud/BudApp
+          dockerfilePath: ${{ github.workspace }}/Bud/BudApp/Dockerfile
+          acrName: ${{ env.ACR_NAME }}
+          containerAppName: ${{ env.FRONTEND_APP_NAME }}
+          resourceGroup: ${{ env.RG }}
+          imageToBuild: ${{ env.ACR_NAME }}.azurecr.io/budapp:${{ github.sha }}
+          buildArguments: |
+            VITE_API_URL=${{ secrets.BACKEND_URL }}
