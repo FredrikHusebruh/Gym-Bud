@@ -51,25 +51,6 @@ jobs:
           az containerapp identity assign --name budapi --resource-group $RG --system-assigned
           az containerapp identity assign --name budapp --resource-group $RG --system-assigned
 
-      - name: Grant AcrPull on ACR
-        run: |
-          ACR_ID=$(az acr show --name $ACR_NAME --query id -o tsv)
-
-          for APP in budapi budapp; do
-            PRINCIPAL_ID=$(az containerapp show \
-              --name $APP \
-              --resource-group $RG \
-              --query identity.principalId \
-              -o tsv)
-
-            az role assignment create \
-              --assignee-object-id $PRINCIPAL_ID \
-              --assignee-principal-type ServicePrincipal \
-              --role AcrPull \
-              --scope $ACR_ID || true
-          done
-          sleep 30
-
       - name: Configure container apps to use ACR via managed identity
         run: |
           az containerapp registry set \
