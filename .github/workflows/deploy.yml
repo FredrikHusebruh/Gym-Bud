@@ -27,7 +27,7 @@ jobs:
         uses: azure/container-apps-deploy-action@v1
         with:
           appSourcePath: ${{ github.workspace }}/Bud/Bud.Api
-          dockerfilePath: ${{ github.workspace }}/Bud/Bud.Api/Dockerfile
+          dockerfilePath: Dockerfile
           acrName: ${{ env.ACR_NAME }}
           containerAppName: ${{ env.BACKEND_APP_NAME }}
           resourceGroup: ${{ env.RG }}
