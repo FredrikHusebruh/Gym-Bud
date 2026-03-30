@@ -4,13 +4,10 @@ on:
   push:
     branches: [main]
 
-permissions:
-  contents: read
-  id-token: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     env:
       RG: GymBudRG
       ACR_NAME: ${{ secrets.AZURE_REGISTRY_NAME }}
@@ -21,26 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # OIDC-login til Azure (anbefalt)
-      - name: Azure login
-        uses: azure/login@v3
-        with:
-          client-id: ${{ secrets.AZURE_CLIENT_ID }}
-          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      # Hent kortlevd ACR-token og logg inn for build/push
-      - name: Get ACR token
-        id: acr
-        run: |
-          echo "token=$(az acr login --name $ACR_NAME --expose-token --output tsv --query accessToken)" >> $GITHUB_OUTPUT
-
       - name: Log in to ACR
         uses: docker/login-action@v3
         with:
           registry: ${{ env.ACR_SERVER }}
-          username: 00000000-0000-0000-0000-000000000000
-          password: ${{ steps.acr.outputs.token }}
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
 
       - name: Build and push backend
         uses: docker/build-push-action@v6
@@ -58,20 +41,32 @@ jobs:
           build-args: |
             VITE_API_URL=${{ secrets.BACKEND_URL }}
 
-      # Viktig: sørg for at Container Apps kan pull'e fra ACR
-      - name: Configure registry access for Container Apps (username/password quick fix)
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Enable ARM authentication on ACR
         run: |
-          az containerapp registry set -n budapi -g $RG --server $ACR_SERVER \
-            --username "${{ secrets.AZURE_REGISTRY_USERNAME }}" \
-            --password "${{ secrets.AZURE_REGISTRY_PASSWORD }}"
-          az containerapp registry set -n budapp -g $RG --server $ACR_SERVER \
-            --username "${{ secrets.AZURE_REGISTRY_USERNAME }}" \
-            --password "${{ secrets.AZURE_REGISTRY_PASSWORD }}"
+          az acr config authentication-as-arm update -r $ACR_NAME --status enabled
+
+      - name: Configure registry to use managed identity
+        run: |
+          az containerapp registry set -n budapi -g $RG \
+            --server $ACR_SERVER --identity system
+          az containerapp registry set -n budapp -g $RG \
+            --server $ACR_SERVER --identity system
 
       - name: Deploy backend
         run: |
-          az containerapp update --name budapi --resource-group $RG --image $BACKEND_IMAGE
+          az containerapp update \
+            --name budapi \
+            --resource-group $RG \
+            --image $BACKEND_IMAGE
 
       - name: Deploy frontend
         run: |
-          az containerapp update --name budapp --resource-group $RG --image $FRONTEND_IMAGE
+          az containerapp update \
+            --name budapp \
+            --resource-group $RG \
+            --image $FRONTEND_IMAGE
