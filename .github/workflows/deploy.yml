@@ -46,16 +46,17 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Enable ARM authentication on ACR
+      - name: Configure registry credentials
         run: |
-          az acr config authentication-as-arm update -r $ACR_NAME --status enabled
-
-      - name: Configure registry to use managed identity
-        run: |
+          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
           az containerapp registry set -n budapi -g $RG \
-            --server $ACR_SERVER --identity system
+            --server $ACR_SERVER \
+            --username "$ACR_NAME" \
+            --password "$ACR_PASS"
           az containerapp registry set -n budapp -g $RG \
-            --server $ACR_SERVER --identity system
+            --server $ACR_SERVER \
+            --username "$ACR_NAME" \
+            --password "$ACR_PASS"
 
       - name: Deploy backend
         run: |
