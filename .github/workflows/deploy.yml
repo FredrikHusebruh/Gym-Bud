@@ -14,26 +14,32 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Log in to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and push backend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}/Bud/Bud.Api
+          file: ${{ github.workspace }}/Bud/Bud.Api/Dockerfile
+          push: true
+          tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:${{ github.sha }}
+
       - name: Azure login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Fix registry secret with correct password
-        run: |
-          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
-          az containerapp secret set --name budapi --resource-group $RG \
-            --secrets "gymbudazurecrio-${ACR_NAME}=$ACR_PASS"
-
-      - name: Build and deploy backend
+      - name: Deploy backend to Azure Container Apps
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}/Bud/Bud.Api
-          dockerfilePath: Dockerfile
-          acrName: ${{ secrets.AZURE_REGISTRY_NAME }}
+          imageToDeploy: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:${{ github.sha }}
           containerAppName: budapi
           resourceGroup: GymBudRG
-          imageToBuild: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapi:${{ github.sha }}
 
   deploy-frontend:
     runs-on: ubuntu-latest
@@ -41,24 +47,30 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Log in to ACR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ github.workspace }}/Bud/BudApp
+          file: ${{ github.workspace }}/Bud/BudApp/Dockerfile
+          push: true
+          tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
+          build-args: VITE_API_URL=${{ secrets.BACKEND_URL }}
+
       - name: Azure login
         uses: azure/login@v2
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Fix registry secret with correct password
-        run: |
-          ACR_PASS=$(az acr credential show --name $ACR_NAME --query "passwords[0].value" -o tsv)
-          az containerapp secret set --name budapp --resource-group $RG \
-            --secrets "gymbudazurecrio-${ACR_NAME}=$ACR_PASS"
-
-      - name: Build and deploy frontend
+      - name: Deploy frontend to Azure Container Apps
         uses: azure/container-apps-deploy-action@v1
         with:
-          appSourcePath: ${{ github.workspace }}/Bud/BudApp
-          dockerfilePath: Dockerfile
-          acrName: ${{ secrets.AZURE_REGISTRY_NAME }}
+          imageToDeploy: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
           containerAppName: budapp
           resourceGroup: GymBudRG
-          imageToBuild: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
-          buildArguments: VITE_API_URL=${{ secrets.BACKEND_URL }}
