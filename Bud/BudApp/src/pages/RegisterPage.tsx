@@ -60,9 +60,11 @@ function RegisterPage() {
             return
         }
 
-        const { error: profileError } = await supabase
-            .from('profiles')
-            .insert({ id: data.user!.id, username: username.trim() })
+        const { error: profileError } = await supabase.rpc('create_profile', {
+            user_id: data.user!.id,
+            user_name: username.trim()
+        })
+
 
         if (profileError) {
             alert('Failed to create profile: ' + profileError.message)
