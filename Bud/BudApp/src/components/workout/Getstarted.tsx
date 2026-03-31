@@ -1,5 +1,4 @@
 import BoxerinactionImg from '../../assets/Boxerinaction.png'
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function GetStarted() {
