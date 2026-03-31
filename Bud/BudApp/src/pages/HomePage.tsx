@@ -1,5 +1,6 @@
 import BoxerinactionImg from '../assets/PixExtender-1774883479687.png'
 import LogoutButton from '../components/LogOutButton'
+import Nav from '../components/nav'
 
 function HomePage() {
 
@@ -17,24 +18,24 @@ function HomePage() {
                     <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
                 </div>
                 <div className='flex-1 flex flex-col border border-[#EFFF00] rounded-full items-center justify-center'>
-                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>T</div>
-                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
+                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>W</div>
+                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>1</div>
                 </div>
                 <div className='flex-1 flex flex-col border border-[#EFFF00] rounded-full items-center justify-center'>
                     <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>T</div>
-                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
+                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>2</div>
                 </div>
                 <div className='flex-1 flex flex-col border border-[#EFFF00] rounded-full items-center justify-center'>
-                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>T</div>
-                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
+                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>F</div>
+                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>3</div>
                 </div>
                 <div className='flex-1 flex flex-col border border-[#EFFF00] rounded-full items-center justify-center'>
-                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>T</div>
-                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
+                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>S</div>
+                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>4</div>
                 </div>
                 <div className='flex-1 flex flex-col border border-[#EFFF00] rounded-full items-center justify-center'>
-                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>T</div>
-                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>31</div>
+                    <div className='flex justify-center items-center text-gray-400 font-bold w-10 h-10'>S</div>
+                    <div className='flex justify-center text-[#F3F3F3] items-center font-bold w-10 h-10'>5</div>
                 </div>
             </div>
         </div>
@@ -43,6 +44,7 @@ function HomePage() {
             <h1 className='font-extrabold italic underline text-2xl text-[#F3F3F3]'>Get started now</h1>
             <p className='font-normal text-sm italic text-[#F3F3F3]'>Start planning your first workout or get inspired by others</p>
         </div>
+        <Nav />
       </section>
       <LogoutButton />
     </>
