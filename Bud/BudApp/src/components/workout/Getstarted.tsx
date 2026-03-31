@@ -1,4 +1,4 @@
-import BoxerinactionImg from '../../assets/Boxerinaction.png'
+import BoxerinactionImg from '../../assets/PixExtender-1774883479687.png'
 import { useNavigate } from "react-router-dom";
 
 export default function GetStarted() {
