@@ -6,13 +6,13 @@ import { supabase } from '../lib/supabase'
 function RegisterPage() {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [displayName, setDisplayName] = useState('')
+    const [username, setUsername] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const navigate = useNavigate()
 
     async function handleRegister() {
-        if (!displayName.trim()) {
-            alert('Display name is required')
+        if (!username.trim()) {
+            alert('Username is required')
             return
         }
         if (!email.trim()) {
@@ -41,18 +41,31 @@ function RegisterPage() {
             return
         }
 
-        const { error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                data: {
-                    display_name: displayName
-                }
-            }
-        })
+        // Check if username is already taken
+        const { data: existing } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('username', username.trim())
+            .maybeSingle()
+
+        if (existing) {
+            alert('Username is already taken')
+            return
+        }
+
+        const { data, error } = await supabase.auth.signUp({ email, password })
 
         if (error) {
             alert(error.message)
+            return
+        }
+
+        const { error: profileError } = await supabase
+            .from('profiles')
+            .insert({ id: data.user!.id, username: username.trim() })
+
+        if (profileError) {
+            alert('Failed to create profile: ' + profileError.message)
             return
         }
 
@@ -65,9 +78,9 @@ function RegisterPage() {
                 <h1 className="text-2xl text-[#F3F3F3] font-extrabold">Register</h1>
                 <input
                     className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
-                    placeholder="Display name"
-                    value={displayName}
-                    onChange={e => setDisplayName(e.target.value)}
+                    placeholder="Username"
+                    value={username}
+                    onChange={e => setUsername(e.target.value)}
                 />
                 <input
                     className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
@@ -97,9 +110,6 @@ function RegisterPage() {
                 </button>
             </div>
             <p className='text-[#9a9a9a]'>Already have an acount? <Link className='text-[#b8c400] underline' to="/Login">Login</Link></p>
-
-
-
         </section>
     )
 }
