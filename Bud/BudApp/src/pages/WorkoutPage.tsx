@@ -1,10 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import Getstarted from '../components/workout/Getstarted'
+
 import Nav from '../components/nav'
 import Calendar from "../components/Calendar";
 
 function Workout() {
-  const navigate = useNavigate();
 
   return (
     <>
