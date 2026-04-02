@@ -1,5 +1,3 @@
-
-import Nav from '../components/nav'
 import Calendar from "../components/Calendar";
 
 function Workout() {

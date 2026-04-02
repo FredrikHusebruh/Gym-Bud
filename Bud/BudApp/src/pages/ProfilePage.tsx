@@ -1,6 +1,6 @@
 import Calendar from "../components/Calendar";
 import LogoutButton from "../components/LogOutButton";
-import Nav from "../components/nav";
+
 
 function Profile() {
 
