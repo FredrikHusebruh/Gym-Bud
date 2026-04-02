@@ -19,7 +19,7 @@ function LandingPage() {
               <button onClick={() => navigate("/Register")} className='bg-[#EFFF00] rounded-full w-24 py-2 text-[#3a3a3a] text-center'>Register</button>
             </div>
           </div>
-          <div className='flex flex-col items-center justify-center gap-4 h-auto w-full rounded-3xl mt-4 border-2 border-[#181818] p-8'>
+          <div className='flex flex-col items-center justify-center gap-4 h-auto w-full rounded-3xl mt-4 bg-[#131313] border border-[#272727] p-8'>
             <h1 className='font-extrabold italic text-2xl text-[#F3F3F3]'>DREAM IT, PLAN IT, DO IT</h1>
             <p className='font-normal text-sm italic text-[#F3F3F3]'>Working out has never benn easier. <span className="font-bold">PLAN</span>, <span className="font-bold">TRACK</span>, <span className="font-bold">SHARE</span> and get <span className="font-bold">INSPIRED</span>, all in one place.</p>
           </div>

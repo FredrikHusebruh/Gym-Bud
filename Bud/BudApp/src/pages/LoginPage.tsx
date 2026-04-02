@@ -27,7 +27,7 @@ export default function LoginPage() {
     return (
         <>
         <section className="w-full h-screen flex flex-col items-center justify-center text-white bg-black font-anton overflow-hidden">
-            <div className="flex flex-col gap-8 border-2 border-[#181818] p-4 rounded-3xl w-[92%] mb-4">
+            <div className="flex flex-col gap-8 border border-[#272727] bg-[#131313] p-4 rounded-3xl w-[92%] mb-4">
                 <h1 className="text-2xl text-[#F3F3F3] font-extrabold">Login</h1>
 
                 <input
