@@ -44,13 +44,13 @@ export default function Calendar() {
                         </div>
                     ))}
                 </div>
-                <div className="w-full h-auto items-center gap-4 justify-between flex flex-row p-2 rounded-2xl bg-[#212121] border border-[#272727]">
+                <div className="w-full h-auto items-center gap-2 justify-between flex flex-row p-2 rounded-2xl bg-[#212121] border border-[#272727]">
                     <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden'>
                         <img src={coachFredrikImg} className="w-full h-full object-cover" />
                     </div>
-                    <div className='flex flex-col w-full h-full text-start'>
-                        <div className='text-[#EFFF00] text-sm'>COACH FREDRIK SAYS:</div>
-                        <div className='font-bold text-sm text-[#F3F3F3]'>You have no workouts scheduled today</div>
+                    <div className='flex flex-col w-full h-full justify-between text-start'>
+                        <div className='text-[#EFFF00] text-[13px]'>COACH FREDRIK</div>
+                        <div className='text-[12px] text-[#F3F3F3]'>You have no workouts scheduled today</div>
                     </div>
                 </div>
             </div>
