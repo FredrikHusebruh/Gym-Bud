@@ -10,7 +10,6 @@ function HomePage() {
       <section className=" w-full h-full flex-col min-h-screen flex items-center p-4 justify-start bg-black font-anton">
         <Calendar />
         <Getstarted />
-        <Nav />
       </section>
     </>
   )
