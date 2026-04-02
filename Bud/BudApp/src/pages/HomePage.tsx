@@ -13,7 +13,6 @@ function HomePage() {
         <Getstarted />
         <Nav />
       </section>
-      <LogoutButton />
     </>
   )
 }
