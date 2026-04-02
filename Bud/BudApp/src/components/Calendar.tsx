@@ -2,9 +2,9 @@ const DAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
 function getWeekDays() {
     const today = new Date()
-    const dayOfWeek = today.getDay() // 0 = Sunday
+    const dayOfWeek = today.getDay()
     const monday = new Date(today)
-    monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7)) // rewind to Monday
+    monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7))
 
     return Array.from({ length: 7 }, (_, i) => {
         const date = new Date(monday)
@@ -32,10 +32,10 @@ export default function Calendar() {
                                 : 'bg-[#212121]'
                         }`}
                     >
-                        <div className={`flex justify-center items-center font-bold w-10 h-7 ${day.isToday ? 'text-gray-700' : 'text-gray-400'}`}>
+                        <div className={`flex justify-center items-center font-bold w-10 h-8 ${day.isToday ? 'text-gray-700' : 'text-gray-400'}`}>
                             {day.label}
                         </div>
-                        <div className={`flex justify-center items-center font-bold w-10 h-7 ${day.isToday ? 'text-[#181818]' : 'text-[#F3F3F3]'}`}>
+                        <div className={`flex justify-center items-center font-bold w-10 h-8 ${day.isToday ? 'text-[#181818]' : 'text-[#F3F3F3]'}`}>
                             {day.date}
                         </div>
                     </div>
