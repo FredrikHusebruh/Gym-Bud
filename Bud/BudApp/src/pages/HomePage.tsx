@@ -1,6 +1,5 @@
 
 import Calendar from '../components/Calendar'
-import Nav from '../components/nav'
 import Getstarted from '../components/workout/Getstarted'
 
 function HomePage() {

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Calendar from "../components/Calendar";
-import Nav from "../components/nav";
 
 const messages = [
     "This feature is not available yet...",
