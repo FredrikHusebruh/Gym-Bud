@@ -12,7 +12,7 @@ export default function LogoutButton() {
 
     return (
         <button onClick={handleLogout}>
-            Logout
+            Logout now
         </button>
     )
 }
