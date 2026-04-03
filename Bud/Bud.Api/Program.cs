@@ -1,5 +1,4 @@
-﻿using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 
@@ -15,26 +14,30 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddControllers();
 builder.Services.AddScoped<NewUserService>();
+builder.Services.AddSingleton<DbConnectionFactory>();
+builder.Services.AddScoped<WorkoutService>();
+builder.Services.AddScoped<ExerciseService>();
 
 
 //autorization
 builder.Services.AddAuthorization();
 
-var bytes = Encoding.UTF8.GetBytes(builder.Configuration["Authentication:JwtSecret"]!);
-
-builder.Services.AddAuthentication().AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
     {
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(bytes),
-        ValidAudience = builder.Configuration["Authentication:ValidAudience"],
-        ValidIssuer = builder.Configuration["Authentication:ValidIssuer"]
-    };
-});
+        options.Authority = builder.Configuration["Authentication:Authority"];
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["Authentication:ValidIssuer"],
+            ValidateAudience = true,
+            ValidAudience = builder.Configuration["Authentication:ValidAudience"]
+        };
+    });
 
 var app = builder.Build();
 
+app.UseRouting();
 app.UseCors("AllowReact");
 app.UseAuthentication();
 app.UseAuthorization();
