@@ -1,4 +1,4 @@
-import coachFredrikImg from '../assets/coachFredrik.png'
+import CoachFredrik from "./workout/Coach"
 
 const DAY_LABELS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
@@ -24,37 +24,28 @@ export default function Calendar() {
 
     return (
         <div className="flex flex-col items-start justify-center gap-2 w-full">
-            <div className="p-2 w-full h-full flex flex-col gap-4 rounded-3xl bg-[#131313] border border-[#272727]">
-                <div className='w-full flex flex-row text-black gap-2 h-20'>
+            <div className="p-2 w-full h-full flex flex-col gap-4 rounded-3xl bg-surface border border-border">
+                <div className='w-full flex flex-row gap-2 h-20'>
                     {days.map((day, i) => (
                         <div
                             key={i}
                             className={`flex-1 flex flex-col rounded-full items-center justify-center ${
                                 day.isToday
-                                    ? 'bg-[#EFFF00] text-[#181818]'
-                                    : 'bg-[#212121]'
+                                    ? 'bg-accent text-text-dark'
+                                    : 'bg-surface-2'
                             }`}
                         >
                             <div className={`flex justify-center items-center font-bold w-10 h-8 ${day.isToday ? 'text-gray-700' : 'text-gray-400'}`}>
                                 {day.label}
                             </div>
-                            <div className={`flex justify-center items-center font-bold w-10 h-8 ${day.isToday ? 'text-[#181818]' : 'text-[#F3F3F3]'}`}>
+                            <div className={`flex justify-center items-center font-bold w-10 h-8 ${day.isToday ? 'text-text-dark' : 'text-text-dim'}`}>
                                 {day.date}
                             </div>
                         </div>
                     ))}
                 </div>
-                <div className="w-full h-auto items-center gap-2 justify-between flex flex-row p-2 rounded-2xl bg-[#212121] border border-[#272727]">
-                    <div className='h-12 w-12 shrink-0 rounded-full overflow-hidden'>
-                        <img src={coachFredrikImg} className="w-full h-full object-cover" />
-                    </div>
-                    <div className='flex flex-col w-full h-full justify-between text-start'>
-                        <div className='text-[#EFFF00] text-[13px]'>COACH FREDRIK</div>
-                        <div className='text-[12px] text-[#F3F3F3]'>You have no workouts scheduled today</div>
-                    </div>
-                </div>
+                <CoachFredrik />
             </div>
-
         </div>
     )
 }

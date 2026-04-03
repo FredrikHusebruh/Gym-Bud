@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
@@ -26,34 +25,31 @@ export default function LoginPage() {
 
     return (
         <>
-        <section className="w-full h-screen flex flex-col items-center justify-center text-white bg-black font-anton overflow-hidden">
-            <div className="flex flex-col gap-8 border border-[#272727] bg-[#131313] p-4 rounded-3xl w-[92%] mb-4">
-                <h1 className="text-2xl text-[#F3F3F3] font-extrabold">Login</h1>
+        <section className="w-full h-screen flex flex-col items-center justify-center text-white bg-bg font-anton overflow-hidden">
+            <div className="flex flex-col gap-8 border border-border bg-surface p-4 rounded-3xl w-[92%] mb-4">
+                <h1 className="text-2xl text-text-dim font-extrabold">Login</h1>
 
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}       
-                    type="password"         
+                    onChange={e => setPassword(e.target.value)}
+                    type="password"
                 />
                 <button
                     onClick={handleLogin}
-                    className="bg-[#EFFF00] text-[#181818] rounded-full py-2 font-bold"
+                    className="bg-accent text-text-dark rounded-full py-2 font-bold"
                 >
                     Login
                 </button>
             </div>
-            <p className='text-[#9a9a9a]'>Don't have an acount? <Link className='text-[#b8c400] underline' to="/Register">Register</Link></p>
-
-
-
+            <p className='text-text-muted'>Don't have an acount? <Link className='text-accent underline' to="/Register">Register</Link></p>
         </section>
     </>
     )

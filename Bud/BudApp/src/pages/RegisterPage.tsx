@@ -41,7 +41,6 @@ function RegisterPage() {
             return
         }
 
-        // Check if username is already taken
         const { data: existing } = await supabase
             .from('profiles')
             .select('id')
@@ -65,7 +64,6 @@ function RegisterPage() {
             user_name: username.trim()
         })
 
-
         if (profileError) {
             alert('Failed to create profile: ' + profileError.message)
             return
@@ -75,30 +73,30 @@ function RegisterPage() {
     }
 
     return (
-        <section className="w-full h-screen flex flex-col items-center justify-center text-white bg-black font-anton overflow-hidden">
-            <div className="flex flex-col gap-8 border bg-[#131313] border-[#272727] p-4 rounded-3xl w-[92%] mb-4">
-                <h1 className="text-2xl text-[#F3F3F3] font-extrabold">Register</h1>
+        <section className="w-full h-screen flex flex-col items-center justify-center text-text-dim bg-bg font-anton overflow-hidden">
+            <div className="flex flex-col gap-8 border bg-surface border-border p-4 rounded-3xl w-[92%] mb-4">
+                <h1 className="text-2xl text-textdim font-extrabold">Register</h1>
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Username"
                     value={username}
                     onChange={e => setUsername(e.target.value)}
                 />
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Password"
                     type="password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
                 <input
-                    className="bg-[#1a1a1a] rounded-lg p-2 text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-[#EFFF00]"
+                    className="bg-surface-2 rounded-lg p-2 text-text-dim focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent"
                     placeholder="Confirm password"
                     type="password"
                     value={confirmPassword}
@@ -106,12 +104,12 @@ function RegisterPage() {
                 />
                 <button
                     onClick={handleRegister}
-                    className="bg-[#EFFF00] text-[#181818] rounded-full py-2 font-bold"
+                    className="bg-accent text-text-dark rounded-full py-2 font-bold"
                 >
                     Register
                 </button>
             </div>
-            <p className='text-[#9a9a9a]'>Already have an acount? <Link className='text-[#b8c400] underline' to="/Login">Login</Link></p>
+            <p className='text-text-muted'>Already have an acount? <Link className='text-accent underline' to="/Login">Login</Link></p>
         </section>
     )
 }
