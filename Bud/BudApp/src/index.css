@@ -7,6 +7,18 @@
   --spacing-safe-bottom: env(safe-area-inset-bottom);
   --spacing-safe-left: env(safe-area-inset-left);
   --spacing-safe-right: env(safe-area-inset-right);
+
+  /* Color palette */
+  --color-accent: #EFFF00;
+  --color-cta: #3E25F6;
+  --color-bg: #000000;
+  --color-surface: #131313;
+  --color-surface-2: #212121;
+  --color-border: #272727;
+  --color-text: #F3F3F3;
+  --color-text-muted: #9a9a9a;
+  --color-text-dark: #181818;
+  --color-text-dim: #dadada;
 }
 :root {
   --text: #6b6375;

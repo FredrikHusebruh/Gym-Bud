@@ -10,12 +10,12 @@ export default function Nav() {
 
     const active = (path: string) =>
         location.pathname === path
-            ? 'bg-[#EFFF00] text-[#3a3a3a]'
-            : 'bg-[#131313] text-[#F3F3F3]'
+            ? 'bg-accent text-text-dark'
+            : 'bg-surface text-text-dim'
 
     return (
         <div className="flex flex-row w-full h-15 fixed bottom-2 px-2 left-0 right-0">
-            <nav className="flex flex-row rounded-full bg-[#131313] w-full h-full border border-[#272727]">
+            <nav className="flex flex-row rounded-full bg-surface w-full h-full border border-border">
                 <button onClick={() => navigate("/Home")} className={`flex-1 flex items-center justify-center rounded-full ${active("/Home")}`}><HomeIcon className="w-6 h-6" /></button>
                 <button onClick={() => navigate("/Feed")} className={`flex-1 flex items-center justify-center rounded-full ${active("/Feed")}`}><FeedIcon className="w-6 h-6" /></button>
                 <button onClick={() => navigate("/Workout")} className={`flex-1 flex items-center justify-center rounded-full ${active("/Workout")}`}><DumbbellIcon className="w-6 h-6" /></button>
