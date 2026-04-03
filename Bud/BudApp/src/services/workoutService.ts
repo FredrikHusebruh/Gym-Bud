@@ -2,13 +2,13 @@ import { apiFetch } from './apiClient'
 import type { Category, MuscleGroup, CreateWorkoutPayload, CreateExercisePayload, WorkoutResponse } from '../types/WorkoutTypes'
 
 export async function getCategories(): Promise<Category[]> {
-    const res = await fetch('/api/workout/category')
+    const res = await fetch(`${import.meta.env.VITE_API_URL ?? ''}/api/workout/category`)
     if (!res.ok) throw new Error('Failed to fetch categories')
     return res.json()
 }
 
 export async function getMuscleGroups(): Promise<MuscleGroup[]> {
-    const res = await fetch('/api/exercise/musclegroup')
+    const res = await fetch(`${import.meta.env.VITE_API_URL ?? ''}/api/exercise/musclegroup`)
     if (!res.ok) throw new Error('Failed to fetch muscle groups')
     return res.json()
 }
