@@ -15,7 +15,7 @@ Gym Bud was built as a personal project during the easter break 2026, to explore
 
 ### Backend
 
-The database runs in a personal Supabase project. Set the following user secrets before running:
+The database runs in a personal Supabase project. You'd need to set the following user secrets before running:
 
 ```bash
 cd Bud/Bud.Api
