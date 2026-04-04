@@ -23,9 +23,9 @@ export default function WorkoutList() {
             {workouts.map(w => (
                 <div key={w.workoutId} className="flex items-start justify-start w-60 font-extrabold italic text-xl bg-gradient-to-br from-[#2a1fff] to-[#1a0aaa] text-accent rounded-3xl p-4 pt-4 flex flex-col gap-2 shrink-0">
                     <h2 className="text-text font-extrabold text-3xl tracking-wide uppercase w-full truncate text-left">{w.name}</h2>
-                    <p className="text-text-muted text-sm">{w.categoryName}</p>
+                    <p className="text-text-muted text-sm pb-4">{w.categoryName}</p>
                     <div className='flex flex-row w-full'>
-                        <button className='p-2 bg-accent rounded-full w-full font-extrabold italic text-xl text-text-dark'>START</button>
+                        <button className='p-2 bg-accent rounded-full w-full font-extrabold text-xl text-text-dark'>▶ START</button>
                         <button></button>
                     </div>
                 </div>
