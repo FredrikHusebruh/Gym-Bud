@@ -15,11 +15,10 @@ Gym Bud was built as a personal project during the easter break 2026, to explore
 
 ### Backend
 
+The database runs in a personal Supabase project. Set the following user secrets before running:
+
 ```bash
 cd Bud/Bud.Api
-
-The database runs in a personal supabase project.
-
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<your supabase connection string>"
 dotnet user-secrets set "Authentication:Authority" "https://<your-project>.supabase.co/auth/v1"
 dotnet user-secrets set "Authentication:ValidIssuer" "https://<your-project>.supabase.co/auth/v1"
