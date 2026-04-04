@@ -10,7 +10,7 @@ function Workout() {
         <>
             <section className="w-full min-h-screen flex flex-col items-center gap-4 justify-start bg-black font-anton p-4 pb-24">
                 <Calendar />
-                <div className="flex flex-col gap-4 w-full h-auto ">
+                <div className="flex flex-col gap-4 w-full h-auto border-b order-t border-border pb-4">
                   {!showNew && <>
                     <h1 className="text-text-dim w-full text-start font-bold text-xl tracking-wide">MY WORKOUTS</h1>
                     <WorkoutList />
