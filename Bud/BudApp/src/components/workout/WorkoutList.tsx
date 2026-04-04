@@ -25,7 +25,7 @@ export default function WorkoutList() {
                     <h2 className="text-text font-extrabold text-3xl tracking-wide uppercase w-full truncate text-left">{w.name}</h2>
                     <p className="text-text-muted text-sm pb-4">{w.categoryName}</p>
                     <div className='flex flex-row w-full'>
-                        <button className='p-2 bg-accent rounded-full w-full font-extrabold text-xl text-text-dark'>▶ START</button>
+                        <button className='p-2 bg-accent rounded-full w-full font-extrabold text-xl text-text-dark'>START</button>
                         <button></button>
                     </div>
                 </div>
