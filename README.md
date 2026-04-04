@@ -4,7 +4,7 @@ A personal fitness tracking app for planning and logging workouts.
 
 ## Background
 
-Gym Bud was built as a school project to explore full-stack development with a modern cloud-native stack. The goal was to create a mobile-first app where users can create workout templates, track exercises, and manage their training over time — authenticated and personalised per user.
+Gym Bud was built as a personal project during the easter break 2026, to explore full-stack development with a modern cloud-native stack. The goal was to create a mobile-first app where users can create workout templates, track exercises, and manage their training over time — authenticated and personalised per user.
 
 ## How to run locally
 
@@ -17,6 +17,9 @@ Gym Bud was built as a school project to explore full-stack development with a m
 
 ```bash
 cd Bud/Bud.Api
+
+The database runs in a personal supabase project.
+
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<your supabase connection string>"
 dotnet user-secrets set "Authentication:Authority" "https://<your-project>.supabase.co/auth/v1"
 dotnet user-secrets set "Authentication:ValidIssuer" "https://<your-project>.supabase.co/auth/v1"
@@ -33,9 +36,6 @@ cd Bud/BudApp
 npm install
 npm run dev
 ```
-
-Frontend runs on `http://localhost:5173`. No `VITE_API_URL` needed locally — it defaults to the same origin.
-
 ---
 
 ## Architecture
@@ -69,12 +69,7 @@ Frontend runs on `http://localhost:5173`. No `VITE_API_URL` needed locally — i
 - Ownership checks are enforced at the SQL level (`INSERT...SELECT...WHERE user_id = @UserId`)
 
 ### Database — Supabase (Postgres)
-- `workout_template` — user's workout plans
-- `exercise` — exercises belonging to a workout template
-- `category` — workout categories (Push, Pull, Legs, etc.)
-- `muscle_group` — muscle groups per exercise
-
----
+More later...
 
 ## CI/CD
 
