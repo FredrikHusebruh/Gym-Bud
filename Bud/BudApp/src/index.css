@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
+html, body {
+  background-color: #000000;
+}
+
 .scrollbar-hide {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -17,8 +21,8 @@
   --spacing-safe-right: env(safe-area-inset-right);
 
   /* Color palette */
-  --color-accent: #D4F701;
-  --color-cta: #3D35E8;
+  --color-accent: #F3FE48;
+  --color-cta: #2215D5;
   --color-bg: #000000;
   --color-surface: #131313;
   --color-surface-2: #212121;

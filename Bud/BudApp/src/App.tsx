@@ -7,6 +7,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage'
 import WorkoutPage from './pages/WorkoutPage'
+import ActiveWorkoutPage from './pages/ActiveWorkoutPage'
 import Profile from './pages/ProfilePage';
 import Feed from './pages/FeedPage';
 import Layout from './Layout';
@@ -21,6 +22,12 @@ function App() {
         <Route path="/Register" element={<RegisterPage />} />
         <Route path="/Login" element={<LoginPage />} />
 
+        <Route path="/Workout/:workoutId" element={
+            <ProtectedRoute>
+              <ActiveWorkoutPage />
+            </ProtectedRoute>
+        } />
+
         <Route element={<Layout />}>
           <Route path="/Home" element={
               <ProtectedRoute>
@@ -33,6 +40,7 @@ function App() {
                 <WorkoutPage />
               </ProtectedRoute>
           } />
+
 
             <Route path="/Profile" element={
               <ProtectedRoute>
