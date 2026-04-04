@@ -59,7 +59,10 @@ jobs:
           file: ${{ github.workspace }}/Bud/BudApp/Dockerfile
           push: true
           tags: ${{ secrets.AZURE_REGISTRY_NAME }}.azurecr.io/budapp:${{ github.sha }}
-          build-args: VITE_API_URL=${{ secrets.BACKEND_URL }}
+          build-args: |
+            VITE_API_URL=${{ secrets.BACKEND_URL }}
+            VITE_SUPABASE_URL=${{ secrets.VITE_SUPABASE_URL }}
+            VITE_SUPABASE_ANON_KEY=${{ secrets.VITE_SUPABASE_ANON_KEY }}
 
       - name: Azure login
         uses: azure/login@v2
