@@ -30,6 +30,15 @@ Backend runs on `http://localhost:5000`.
 
 ### Frontend
 
+Create `Bud/BudApp/.env` with your Supabase credentials:
+
+```
+VITE_SUPABASE_URL=https://<your-project>.supabase.co
+VITE_SUPABASE_ANON_KEY=<your-supabase-anon-key>
+```
+
+Then run:
+
 ```bash
 cd Bud/BudApp
 npm install
@@ -77,8 +86,20 @@ Deployments are triggered automatically on push to `main` via **GitHub Actions**
 ### Pipeline steps
 1. Build and push **backend** Docker image to **Azure Container Registry**
 2. Update **`budapi`** Azure Container App with the new image
-3. Build and push **frontend** Docker image (`VITE_API_URL` baked in at build time via build arg)
+3. Build and push **frontend** Docker image (`VITE_API_URL`, `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` baked in at build time via build args)
 4. Update **`budapp`** Azure Container App with the new image
+
+### Required GitHub secrets
+
+| Secret | Description |
+|--------|-------------|
+| `AZURE_CREDENTIALS` | Azure service principal JSON |
+| `AZURE_REGISTRY_NAME` | Azure Container Registry name |
+| `AZURE_REGISTRY_USERNAME` | ACR username |
+| `AZURE_REGISTRY_PASSWORD` | ACR password |
+| `BACKEND_URL` | Public URL of the deployed backend |
+| `VITE_SUPABASE_URL` | Supabase project URL |
+| `VITE_SUPABASE_ANON_KEY` | Supabase anon/publishable key |
 
 ### Infrastructure
 - **Azure Container Registry** — stores Docker images
