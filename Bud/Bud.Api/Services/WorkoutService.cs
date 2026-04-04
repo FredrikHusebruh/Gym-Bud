@@ -29,6 +29,43 @@ public class WorkoutService
         });
     }
 
+    public async Task<IEnumerable<WorkoutWithExercisesResponse>> GetWorkoutsAsync(Guid userId)
+    {
+        const string sql = """
+            SELECT
+                wt.workout_id AS "WorkoutId", wt.name AS "Name", wt.description AS "Description", wt.category_id AS "CategoryId", c.category AS "CategoryName",
+                e.exercise_id AS "ExerciseId", e.name AS "ExerciseName", e.workout_template_id AS "ExerciseWorkoutId", e.muscle_group_id AS "MuscleGroupId"
+            FROM workout_template wt
+            LEFT JOIN category c ON c.id = wt.category_id
+            LEFT JOIN exercise e ON e.workout_template_id = wt.workout_id
+            WHERE wt.user_id = @UserId
+            ORDER BY wt.workout_id
+            """;
+
+        using var conn = _db.Create();
+        conn.Open();
+
+        var workoutDict = new Dictionary<long, WorkoutWithExercisesResponse>();
+        await conn.QueryAsync<WorkoutWithExercisesResponse, ExerciseResponse, WorkoutWithExercisesResponse>(
+            sql,
+            (workout, exercise) =>
+            {
+                if (!workoutDict.TryGetValue(workout.WorkoutId, out var existing))
+                {
+                    existing = workout;
+                    workoutDict[workout.WorkoutId] = existing;
+                }
+                if (exercise != null)
+                    existing.Exercises.Add(exercise);
+                return existing;
+            },
+            new { UserId = userId },
+            splitOn: "ExerciseId"
+        );
+
+        return workoutDict.Values;
+    }
+
     public async Task<IEnumerable<CategoryResponse>> GetCategoriesAsync()
     {
         const string sql = "SELECT id, category FROM category ORDER BY category";

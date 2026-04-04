@@ -23,9 +23,19 @@ public class WorkoutResponse
 public class ExerciseResponse
 {
     public long ExerciseId { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public long WorkoutId { get; set; }
+    public string ExerciseName { get; set; } = string.Empty;
+    public long ExerciseWorkoutId { get; set; }
     public int MuscleGroupId { get; set; }
+}
+
+public class WorkoutWithExercisesResponse
+{
+    public long WorkoutId { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string? Description { get; set; }
+    public int CategoryId { get; set; }
+    public string CategoryName { get; set; } = string.Empty;
+    public List<ExerciseResponse> Exercises { get; set; } = [];
 }
 
 public class CategoryResponse

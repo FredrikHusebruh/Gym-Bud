@@ -37,6 +37,25 @@ public class WorkoutController : ControllerBase
         }
     }
 
+    [Authorize]
+    [HttpGet]
+    public async Task<IActionResult> GetWorkouts()
+    {
+        var userId = GetUserIdFromJwt();
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var workouts = await _workoutService.GetWorkoutsAsync(userId.Value);
+            return Ok(workouts);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to fetch workouts for user {UserId}", userId);
+            return StatusCode(500, "Failed to fetch workouts");
+        }
+    }
+
     [HttpGet("category")]
     public async Task<IActionResult> GetCategories()
     {

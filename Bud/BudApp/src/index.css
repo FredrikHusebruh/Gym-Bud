@@ -1,6 +1,14 @@
 @import "tailwindcss";
 @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 @theme {
   --font-anton: 'Anton', sans-serif;
   --spacing-safe-top: env(safe-area-inset-top);
@@ -9,8 +17,8 @@
   --spacing-safe-right: env(safe-area-inset-right);
 
   /* Color palette */
-  --color-accent: #EFFF00;
-  --color-cta: #3E25F6;
+  --color-accent: #D4F701;
+  --color-cta: #3D35E8;
   --color-bg: #000000;
   --color-surface: #131313;
   --color-surface-2: #212121;
