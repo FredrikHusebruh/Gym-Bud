@@ -26,3 +26,19 @@ export interface WorkoutResponse {
     description: string | null
     categoryId: number
 }
+
+export interface ExerciseResponse {
+    exerciseId: number
+    exerciseName: string
+    exerciseWorkoutId: number
+    muscleGroupId: number
+}
+
+export interface WorkoutWithExercises {
+    workoutId: number
+    name: string
+    description: string | null
+    categoryId: number
+    categoryName: string
+    exercises: ExerciseResponse[]
+}
