@@ -24,8 +24,10 @@ export default function ActiveWorkoutPage() {
     if (!workout) return <p className="text-text-muted text-sm p-4">Loading...</p>
 
     return (
-        <section className="w-full min-h-screen flex flex-col items-center gap-4 justify-start bg-black font-anton pb-24">
-            <ActiveWorkout workout={workout} onClose={() => navigate('/Workout')} />
-        </section>
+        <div className="flex flex-col items-center min-h-screen bg-black font-anton">
+            <div className="w-full max-w-screen-sm min-h-screen">
+                <ActiveWorkout workout={workout} onClose={() => navigate('/Workout')} />
+            </div>
+        </div>
     )
 }

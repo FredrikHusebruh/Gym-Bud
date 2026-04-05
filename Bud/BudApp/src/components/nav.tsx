@@ -14,7 +14,7 @@ export default function Nav() {
             : 'bg-surface text-text-dim'
 
     return (
-        <div className="flex flex-row w-full h-15 fixed bottom-2 px-2 left-0 right-0">
+        <div className="flex flex-row h-15 fixed bottom-2 px-2 left-1/2 -translate-x-1/2 w-full max-w-screen-sm">
             <nav className="flex flex-row rounded-full bg-surface w-full h-full border border-border">
                 <button onClick={() => navigate("/Home")} className={`flex-1 flex items-center justify-center rounded-full ${active("/Home")}`}><HomeIcon className="w-6 h-6" /></button>
                 <button onClick={() => navigate("/Feed")} className={`flex-1 flex items-center justify-center rounded-full ${active("/Feed")}`}><FeedIcon className="w-6 h-6" /></button>

@@ -48,7 +48,7 @@ export default function ActiveWorkout({ workout, onClose }: Props) {
                     ))
                 }
             </div>
-            <div className="fixed w-full bottom-0 left-0 right-0 flex justify-center px-4 pb-8">
+            <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-screen-sm flex justify-center px-4 pb-8">
                 {workoutId
                     ? <button onClick={onClose} className="flex items-center justify-center font-extrabold italic text-xl text-text-dark w-full bg-accent gap-2 rounded-full p-4">FINISH WORKOUT</button>
                     : <button onClick={handleStart} disabled={starting} className="flex items-center justify-center font-extrabold italic text-xl text-text-dark w-full bg-accent gap-2 rounded-full p-4 disabled:opacity-50">
