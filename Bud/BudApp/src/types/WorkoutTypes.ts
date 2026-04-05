@@ -32,6 +32,7 @@ export interface ExerciseResponse {
     exerciseName: string
     exerciseWorkoutId: number
     muscleGroupId: number
+    muscleGroupName: string
 }
 
 export interface WorkoutWithExercises {

@@ -26,6 +26,7 @@ public class ExerciseResponse
     public string ExerciseName { get; set; } = string.Empty;
     public long ExerciseWorkoutId { get; set; }
     public int MuscleGroupId { get; set; }
+    public string MuscleGroupName { get; set; } = string.Empty;
 }
 
 public class WorkoutWithExercisesResponse

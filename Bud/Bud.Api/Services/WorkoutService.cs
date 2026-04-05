@@ -34,10 +34,11 @@ public class WorkoutService
         const string sql = """
             SELECT
                 wt.workout_id AS "WorkoutId", wt.name AS "Name", wt.description AS "Description", wt.category_id AS "CategoryId", c.category AS "CategoryName",
-                e.exercise_id AS "ExerciseId", e.name AS "ExerciseName", e.workout_template_id AS "ExerciseWorkoutId", e.muscle_group_id AS "MuscleGroupId"
+                e.exercise_id AS "ExerciseId", e.name AS "ExerciseName", e.workout_template_id AS "ExerciseWorkoutId", e.muscle_group_id AS "MuscleGroupId", mg.muscle_group AS "MuscleGroupName"
             FROM workout_template wt
             LEFT JOIN category c ON c.id = wt.category_id
             LEFT JOIN exercise e ON e.workout_template_id = wt.workout_id
+            LEFT JOIN muscle_group mg ON mg.id = e.muscle_group_id
             WHERE wt.user_id = @UserId
             ORDER BY wt.workout_id
             """;
