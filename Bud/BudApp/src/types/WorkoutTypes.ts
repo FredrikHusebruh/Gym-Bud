@@ -35,6 +35,35 @@ export interface ExerciseResponse {
     muscleGroupName: string
 }
 
+export interface SetEntry {
+    weight: number
+    reps: number
+    saved: boolean
+}
+
+export interface SetResponse {
+    setId: number
+    weight: number
+    reps: number
+    exerciseId: number
+}
+
+export interface LastWorkoutSetsResponse {
+    exerciseId: number
+    sets: SetResponse[]
+}
+
+export interface StartWorkoutResponse {
+    workoutId: number
+}
+
+export interface LogSetRequest {
+    workoutId: number
+    exerciseId: number
+    weight: number
+    reps: number
+}
+
 export interface WorkoutWithExercises {
     workoutId: number
     name: string

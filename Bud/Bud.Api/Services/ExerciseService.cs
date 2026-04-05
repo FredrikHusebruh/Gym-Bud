@@ -21,7 +21,7 @@ public class ExerciseService
             """;
 
         using var conn = _db.Create();
-        conn.Open();
+        await conn.OpenAsync();
         return await conn.QuerySingleOrDefaultAsync<ExerciseResponse>(sql, new
         {
             req.Name,
@@ -35,7 +35,7 @@ public class ExerciseService
     {
         const string sql = "SELECT id, muscle_group AS \"MuscleGroup\" FROM muscle_group ORDER BY muscle_group";
         using var conn = _db.Create();
-        conn.Open();
+        await conn.OpenAsync();
         var result = await conn.QueryAsync<MuscleGroupResponse>(sql);
         return result.ToList();
     }

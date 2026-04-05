@@ -10,5 +10,5 @@ public class DbConnectionFactory
         _connectionString = configuration.GetConnectionString("DefaultConnection")!;
     }
 
-    public IDbConnection Create() => new NpgsqlConnection(_connectionString);
+    public NpgsqlConnection Create() => new NpgsqlConnection(_connectionString);
 }

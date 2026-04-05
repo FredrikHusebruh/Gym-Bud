@@ -19,7 +19,7 @@ public class WorkoutService
             """;
 
         using var conn = _db.Create();
-        conn.Open();
+        await conn.OpenAsync();
         return await conn.QuerySingleAsync<WorkoutResponse>(sql, new
         {
             req.Name,
@@ -44,7 +44,7 @@ public class WorkoutService
             """;
 
         using var conn = _db.Create();
-        conn.Open();
+        await conn.OpenAsync();
 
         var workoutDict = new Dictionary<long, WorkoutWithExercisesResponse>();
         await conn.QueryAsync<WorkoutWithExercisesResponse, ExerciseResponse, WorkoutWithExercisesResponse>(
@@ -67,11 +67,88 @@ public class WorkoutService
         return workoutDict.Values;
     }
 
+    public async Task<StartWorkoutResponse> StartWorkoutAsync(long templateId, Guid userId)
+    {
+        const string sql = """
+            INSERT INTO workout ("Scheduled_at", template_id, user_id)
+            VALUES (NOW(), @TemplateId, @UserId)
+            RETURNING workout_id AS "WorkoutId"
+            """;
+
+        using var conn = _db.Create();
+        await conn.OpenAsync();
+        return await conn.QuerySingleAsync<StartWorkoutResponse>(sql, new { TemplateId = templateId, UserId = userId });
+    }
+
+    public async Task<SetResponse> LogSetAsync(LogSetRequest req, Guid userId)
+    {
+        const string sql = """
+            INSERT INTO set (weight, reps, exercise_id, workout_id)
+            SELECT @Weight, @Reps, @ExerciseId, @WorkoutId
+            FROM exercise e
+            JOIN workout_template wt ON wt.workout_id = e.workout_template_id
+            WHERE e.exercise_id = @ExerciseId AND wt.user_id = @UserId
+            RETURNING set_id AS "SetId", weight AS "Weight", reps AS "Reps", exercise_id AS "ExerciseId"
+            """;
+
+        using var conn = _db.Create();
+        await conn.OpenAsync();
+        return await conn.QuerySingleAsync<SetResponse>(sql, new
+        {
+            req.Weight,
+            req.Reps,
+            req.ExerciseId,
+            req.WorkoutId,
+            UserId = userId
+        });
+    }
+
+    public async Task<IEnumerable<LastWorkoutSetsResponse>> GetLastWorkoutSetsAsync(long templateId, Guid userId, long excludeWorkoutId)
+    {
+        const string sql = """
+            SELECT e.exercise_id AS "ExerciseId", s.set_id AS "SetId", s.weight AS "Weight", s.reps AS "Reps"
+            FROM workout w
+            JOIN exercise e ON e.workout_template_id = w.template_id
+            LEFT JOIN set s ON s.exercise_id = e.exercise_id AND s.workout_id = w.workout_id
+            WHERE w.template_id = @TemplateId
+              AND w.user_id = @UserId
+              AND w.workout_id = (
+                SELECT workout_id FROM workout
+                WHERE template_id = @TemplateId AND user_id = @UserId AND workout_id != @ExcludeWorkoutId
+                ORDER BY "Scheduled_at" DESC LIMIT 1
+              )
+            ORDER BY e.exercise_id, s.set_id
+            """;
+
+        using var conn = _db.Create();
+        await conn.OpenAsync();
+
+        var exerciseDict = new Dictionary<long, LastWorkoutSetsResponse>();
+        await conn.QueryAsync<LastWorkoutSetsResponse, SetResponse, LastWorkoutSetsResponse>(
+            sql,
+            (exercise, set) =>
+            {
+                if (!exerciseDict.TryGetValue(exercise.ExerciseId, out var existing))
+                {
+                    existing = exercise;
+                    exerciseDict[exercise.ExerciseId] = existing;
+                }
+                if (set != null)
+                    existing.Sets.Add(set);
+                return existing;
+            },
+            new { TemplateId = templateId, UserId = userId, ExcludeWorkoutId = excludeWorkoutId },
+            splitOn: "SetId"
+        );
+
+        return exerciseDict.Values;
+    }
+
     public async Task<IEnumerable<CategoryResponse>> GetCategoriesAsync()
     {
         const string sql = "SELECT id, category FROM category ORDER BY category";
         using var conn = _db.Create();
-        conn.Open();
+        await conn.OpenAsync();
         var result = await conn.QueryAsync<CategoryResponse>(sql);
         return result.ToList();
     }

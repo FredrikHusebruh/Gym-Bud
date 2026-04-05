@@ -39,6 +39,38 @@ public class WorkoutWithExercisesResponse
     public List<ExerciseResponse> Exercises { get; set; } = [];
 }
 
+public class StartWorkoutRequest
+{
+    public long TemplateId { get; set; }
+}
+
+public class StartWorkoutResponse
+{
+    public long WorkoutId { get; set; }
+}
+
+public class LogSetRequest
+{
+    public long WorkoutId { get; set; }
+    public long ExerciseId { get; set; }
+    public short Weight { get; set; }
+    public short Reps { get; set; }
+}
+
+public class SetResponse
+{
+    public long SetId { get; set; }
+    public short Weight { get; set; }
+    public short Reps { get; set; }
+    public long ExerciseId { get; set; }
+}
+
+public class LastWorkoutSetsResponse
+{
+    public long ExerciseId { get; set; }
+    public List<SetResponse> Sets { get; set; } = [];
+}
+
 public class CategoryResponse
 {
     public int Id { get; set; }

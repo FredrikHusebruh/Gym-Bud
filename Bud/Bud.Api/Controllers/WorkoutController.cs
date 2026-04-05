@@ -56,6 +56,63 @@ public class WorkoutController : ControllerBase
         }
     }
 
+    [Authorize]
+    [HttpPost("start")]
+    public async Task<IActionResult> StartWorkout([FromBody] StartWorkoutRequest request)
+    {
+        var userId = GetUserIdFromJwt();
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var result = await _workoutService.StartWorkoutAsync(request.TemplateId, userId.Value);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to start workout for user {UserId}", userId);
+            return StatusCode(500, "Failed to start workout");
+        }
+    }
+
+    [Authorize]
+    [HttpPost("set")]
+    public async Task<IActionResult> LogSet([FromBody] LogSetRequest request)
+    {
+        var userId = GetUserIdFromJwt();
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var result = await _workoutService.LogSetAsync(request, userId.Value);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to log set for user {UserId}", userId);
+            return StatusCode(500, "Failed to log set");
+        }
+    }
+
+    [Authorize]
+    [HttpGet("template/{templateId}/last")]
+    public async Task<IActionResult> GetLastWorkoutSets(long templateId, [FromQuery] long excludeWorkoutId)
+    {
+        var userId = GetUserIdFromJwt();
+        if (userId == null) return Unauthorized();
+
+        try
+        {
+            var result = await _workoutService.GetLastWorkoutSetsAsync(templateId, userId.Value, excludeWorkoutId);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Failed to fetch last workout sets for user {UserId}", userId);
+            return StatusCode(500, "Failed to fetch last workout sets");
+        }
+    }
+
     [HttpGet("category")]
     public async Task<IActionResult> GetCategories()
     {
