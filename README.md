@@ -2,6 +2,23 @@
 
 A personal fitness tracking app for planning and logging workouts.
 
+<div align="center">
+<table>
+  <tr>
+    <td><img width="180" alt="IMG_6670" src="https://github.com/user-attachments/assets/a86f3ab9-61bd-48f8-94f4-2ddfea3f69b2" /></td>
+    <td><img width="180" alt="IMG_6666" src="https://github.com/user-attachments/assets/689bbded-d8ea-462f-941c-a2da064517fb" /></td>
+    <td><img width="180" alt="IMG_6667" src="https://github.com/user-attachments/assets/904f97c8-1b17-4193-9fb2-8d1cca6c7732" /></td>
+    <td><img width="180" alt="IMG_6669" src="https://github.com/user-attachments/assets/08d95492-f9f3-4b3e-b4f5-c55e52fcc7ab" /></td>
+    <td><img width="180" alt="IMG_6668" src="https://github.com/user-attachments/assets/b4f8134a-8875-4616-8412-c39104e15176" /></td>
+    <td><img width="180" alt="IMG_6672" src="https://github.com/user-attachments/assets/11915e17-5afe-423e-b106-1d6291bb1bd7" /></td>
+    <td><img width="180" alt="IMG_6671" src="https://github.com/user-attachments/assets/80970490-93ee-41d8-891b-aaf6a74ce0b9" /></td>
+  </tr>
+</table>
+</div>
+
+The Azure Container App has cold starts as it scales to zero, so the first load might be slow for visitors. [Check out the project here](https://budapp.gentlesand-7c9a41c5.norwayeast.azurecontainerapps.io/)
+
+
 ## Background
 
 Gym Bud was built as a personal project during the easter break 2026, to explore full-stack development with a modern cloud-native stack. The goal was to create a mobile-first app where users can create workout templates, track exercises, and manage their training over time — authenticated and personalised per user.
