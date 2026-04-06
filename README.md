@@ -23,45 +23,6 @@ The Azure Container App has cold starts as it scales to zero, so the first load 
 
 Gym Bud was built as a personal project during the easter break 2026, to explore full-stack development with a modern cloud-native stack. The goal was to create a mobile-first app where users can create workout templates, track exercises, and manage their training over time — authenticated and personalised per user.
 
-## How to run locally
-
-### Prerequisites
-- .NET 9 SDK
-- Node.js 20+
-- A Supabase project (for auth + database)
-
-### Backend
-
-The database runs in a personal Supabase project. You'd need to set the following user secrets before running:
-
-```bash
-cd Bud/Bud.Api
-dotnet user-secrets set "ConnectionStrings:DefaultConnection" "<your supabase connection string>"
-dotnet user-secrets set "Authentication:Authority" "https://<your-project>.supabase.co/auth/v1"
-dotnet user-secrets set "Authentication:ValidIssuer" "https://<your-project>.supabase.co/auth/v1"
-dotnet user-secrets set "Authentication:ValidAudience" "authenticated"
-dotnet run
-```
-
-Backend runs on `http://localhost:5000`.
-
-### Frontend
-
-Create `Bud/BudApp/.env` with your Supabase credentials:
-
-```
-VITE_SUPABASE_URL=https://<your-project>.supabase.co
-VITE_SUPABASE_ANON_KEY=<your-supabase-anon-key>
-```
-
-Then run:
-
-```bash
-cd Bud/BudApp
-npm install
-npm run dev
-```
----
 
 ## Architecture
 
